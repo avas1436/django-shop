@@ -1,0 +1,12 @@
+[project]
+name = "django-shop"
+version = "0.1.0"
+description = "پروژه فروشگاه آنلاین با استفاده از جنگو"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "django>=6.0.7",
+    "gunicorn>=26.0.0",
+    "psycopg2-binary>=2.9.12",
+    "python-dotenv>=1.2.2",
+]
