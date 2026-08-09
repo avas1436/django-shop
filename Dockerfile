@@ -54,6 +54,9 @@ USER app
 # Expose port
 EXPOSE 8000
 
+# بررسی سلامت عملکرد بک اند
+# HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost:8000/health/ || exit 1
+
 # برای اجرا با داکر کوپوز نیازی به اجرا کردن خودکار نیست 
 
 # ==========================

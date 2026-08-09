@@ -2,16 +2,35 @@ version: "3.9"
 
 services:
   db:
+    # نام ایمیج
     image: postgres:16-alpine
+
+    # والیوم
     volumes:
-      - ./postgres/data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - postgres_data:/var/lib/postgresql/data
+
+    # نام کانتینر نمایش داده شده
+    container_name: db
+
+    # خواندن تنظیمات از فایل env
+    env_file:
+      - ./envs/.env.db
+
+    # environment:
+    #   - POSTGRES_DB=postgres
+    #   - POSTGRES_USER=postgres
+    #   - POSTGRES_PASSWORD=postgres
     expose:
       - 5432
-    restart: always
+
+    restart: unless-stopped
+
+    # بررسی وضعیت سلامت کانتینر
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     # نام کانتینر نمایش داده شده
@@ -40,4 +59,6 @@ services:
     restart: always
 
     depends_on:
-      - db
+      # در این حالت تعیین میکند حتما بعد از شروع سالم دیتابیس این کانتینر شروع به کار کند
+      db:
+        condition: service_healthy
