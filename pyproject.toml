@@ -3,7 +3,7 @@ name = "django-shop"
 version = "0.1.0"
 description = "پروژه فروشگاه آنلاین با استفاده از جنگو"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.13"
 dependencies = [
     "django>=6.0.7",
     "gunicorn>=26.0.0",

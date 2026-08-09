@@ -3,7 +3,7 @@
 # ==========================
 # Base Image
 # ==========================
-FROM python:3.13-slim AS base
+FROM python:3.13 AS base
 
 # نمایش لاگ های پایتون
 ENV PYTHONUNBUFFERED=1
@@ -54,10 +54,12 @@ USER app
 # Expose port
 EXPOSE 8000
 
+# برای اجرا با داکر کوپوز نیازی به اجرا کردن خودکار نیست 
+
 # ==========================
 # Development
 # ==========================
-CMD ["uv", "run", "--no-dev", "manage.py", "runserver", "0.0.0.0:8000"]
+# CMD ["uv", "run", "--no-dev", "manage.py", "runserver", "0.0.0.0:8000"]
 
 # ==========================
 # Production
