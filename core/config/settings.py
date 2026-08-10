@@ -7,11 +7,13 @@ from pathlib import Path
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# متغیر های محیطی
 env = environ.Env(DEBUG=(bool, False))
 
 # فقط در اجرای لوکال کاربرد دارد و در داکر خودکار لود میشه
-environ.Env.read_env(BASE_DIR.parent / "envs" / ".env")
+environ.Env.read_env(BASE_DIR / "envs" / ".env")
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -20,7 +22,10 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
+ALLOWED_HOSTS = env.list(
+    "ALLOWED_HOSTS",
+    default=["localhost", "127.0.0.1"],
+)
 
 
 # Application definition
