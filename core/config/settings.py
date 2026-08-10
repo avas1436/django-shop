@@ -31,11 +31,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "cart",
-    "catalog",
-    "orders",
-    "payments",
-    "users",
+    "apps.cart",
+    "apps.catalog",
+    "apps.orders",
+    "apps.payments",
+    "apps.users",
 ]
 
 MIDDLEWARE = [
@@ -101,3 +101,21 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "static/"
+MEDIA_URL = "media/"
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_ROOT = BASE_DIR / "media"
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# SMTP
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = env("EMAIL_HOST", default="smtp4dev")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=False)
+EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)
+EMAIL_PORT = env.int("EMAIL_PORT", default=25)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
