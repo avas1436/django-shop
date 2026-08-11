@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  db:
+    # نام ایمیج
+    image: postgres:16-alpine
+
+    # والیوم
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    # نام کانتینر نمایش داده شده
+    container_name: db
+
+    # خواندن تنظیمات از فایل env
+    env_file:
+      - ./envs/.env.db
+
+    # environment:
+    #   - POSTGRES_DB=postgres
+    #   - POSTGRES_USER=postgres
+    #   - POSTGRES_PASSWORD=postgres
+    expose:
+      - 5432
+
+    restart: unless-stopped
+
+    # بررسی وضعیت سلامت کانتینر
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    # نام کانتینر نمایش داده شده
+    container_name: backend
+
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+
+    volumes:
+      - ./core:/app
+
+    working_dir: /app
+
+    command: uv run --no-dev manage.py runserver 0.0.0.0:8000
+
+    ports:
+      - 8000:8000
+
+    environment:
+      - DEBUG=True
+
+    env_file:
+      - ./envs/.env
+
+    restart: always
+
+    depends_on:
+      # در این حالت تعیین میکند حتما بعد از شروع سالم دیتابیس این کانتینر شروع به کار کند
+      db:
+        condition: service_healthy
