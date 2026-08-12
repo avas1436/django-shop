@@ -97,4 +97,24 @@ class AboutView(TemplateView):
 
 </div>
 
+در آخرین مرحله هم باید در فایل apps.py اپ وبسایت نام و مشخصات اپ را مشخص کنیم تا هسته بتواند این اپ را شناسایی کند:
+
+<div dir="ltr">
+
+`core/apps/website/apps.py`
+
+```text
+from django.apps import AppConfig
+
+
+class WebsiteConfig(AppConfig):
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "apps.website"
+
+
+
+```
+
+</div>
+
 </div>
