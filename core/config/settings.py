@@ -1,6 +1,4 @@
-"""
-Django settings for core project.
-"""
+# core/config/settings.py
 
 from pathlib import Path
 
@@ -41,6 +39,7 @@ INSTALLED_APPS = [
     "apps.orders",
     "apps.payments",
     "apps.users",
+    "apps.website",
 ]
 
 MIDDLEWARE = [
@@ -58,7 +57,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
