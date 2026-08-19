@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework_simplejwt",
     "apps.cart",
     "apps.catalog",
     "apps.orders",
@@ -73,7 +75,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
-DATABASES = {"default": {"default": env.db("DATABASE_URL")}}
+DATABASES = {"default": env.db("DATABASE_URL")}
 
 
 # Password validation
@@ -146,3 +148,13 @@ if SHOW_DEBUGGER_TOOLBAR:
         "127.0.0.1",
         "10.0.2.2",
     ]
+
+
+AUTH_USER_MODEL = "accounts.User"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+}

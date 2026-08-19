@@ -118,7 +118,7 @@ class Profile(models.Model):
         verbose_name_plural = _("profiles")
 
     def __str__(self):
-        return self.get_fullname()
+        return str(self.get_fullname())
 
     def get_fullname(self):
         if self.first_name or self.last_name:
@@ -126,6 +126,7 @@ class Profile(models.Model):
         return _("کاربر جدید")
 
 
+# یک سیگنال که بعد از ساخته شدن هر کاربر یک پروفایل هم برای او ایجاد میکند
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
